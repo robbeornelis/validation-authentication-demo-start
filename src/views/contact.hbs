@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>Contacteer Georgette</h1>
+    <div class="columns">
+        <div class="column left">
+            <p>Georgette geeft graag gouden advies als het neerkomt op lekker ruiken. Ze heeft er zelfs al enkele spreuken voor bedacht.</p>
+            <blockquote>
+                <p>Parfum van Georgette ruik je zelfs via Snapchat</p>
+                <p>Een geurtje van Georgette is alle dagen pret, voor een klein budget</p>
+            </blockquote>
+        </div>
+        <div class="column right">
+            <div class="contact-wrapper">
+                <h3>Stuur Georgette via het wereldwijde internet</h3>
+                <form action="/contact" method="POST">
+                    {{#if flash.message}}
+                    <div class="alert {{ flash.type}}">
+                        {{ flash.message}}
+                    </div>
+                    {{/if}}
+                    {{#each inputs}}
+                        {{>form-input this}}
+                    {{/each}}
+                    <div class="footer-container">
+                        <button class="btn btn-primary" type="submit">
+                            Zend bericht naar Georgette
+                        </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

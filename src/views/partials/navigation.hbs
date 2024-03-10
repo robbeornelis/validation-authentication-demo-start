@@ -1,0 +1,19 @@
+<nav>
+  <div class="logo">
+    P.G.M. <i class="fas fa-paw"></i> 
+  </div>
+  <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/contact">Contact</a>
+    <li>
+      {{#if user}}
+      <a href="/dashboard">Dashboard</a>
+      {{else}}
+      <a href="/login">Webshop</a>
+      {{/if}}
+    </li>
+  </ul>
+</nav>
