@@ -38,8 +38,16 @@ export const contact = (req, res) => {
 export const postContact = async (req, res, next) => {
   // check errors and show in browser
   const errors = validationResult(req);
-  res.send(errors);
-  return;
+
+  if (!errors.isEmpty()) {
+    req.formErrorFields = {};
+    errors.array().forEach((error) => {
+      req.formErrorFields[error.path] = error.msg;
+    });
+
+    // show errors in browser via the contact page
+    return next();
+  }
 
   res.send(req.body);
   return;
