@@ -2,9 +2,7 @@ import { body } from "express-validator";
 
 export default [
   // fullname
-  body("fullname")
-    .notEmpty()
-    .withMessage("Vul je naam in")
+  body("fullname").notEmpty().withMessage("Vul je naam in"),
   // email
   body("email")
     .notEmpty()
