@@ -37,8 +37,12 @@ export const contact = (req, res) => {
     },
   ];
 
+  // haal flash message uit de request, anders leeg ""
+  const flash = req.flash || "";
+
   res.render("contact", {
     inputs,
+    flash,
   });
 };
 
@@ -54,13 +58,16 @@ export const postContact = async (req, res, next) => {
     errors.array().forEach((error) => {
       req.formErrorFields[error.path] = error.msg;
     });
-
     // show errors in browser via the contact page
     return next();
   }
 
-  res.send(req.body);
-  return;
+  req.flash = {
+    type: "success",
+    message: "Bedankt voor je bericht. Georgette gaat ermee aan de slag!",
+  };
 
-  next();
+  req.body = {};
+
+  return next();
 };
