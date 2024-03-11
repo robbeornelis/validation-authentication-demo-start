@@ -5,9 +5,6 @@ export default [
   body("fullname")
     .notEmpty()
     .withMessage("Vul je naam in")
-    .bail()
-    .isAlpha()
-    .withMessage("Je naam mag alleen letters bevatten"),
   // email
   body("email")
     .notEmpty()
