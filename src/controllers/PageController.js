@@ -19,18 +19,21 @@ export const contact = (req, res) => {
       label: "Volledige naam",
       type: "text",
       err: req.formErrorFields?.fullname ? req.formErrorFields.fullname : "",
+      value: req.body?.fullname ? req.body.fullname : "",
     },
     {
       name: "email",
       label: "Jouw e-mail adres",
       type: "text",
       err: req.formErrorFields?.email ? req.formErrorFields.email : "",
+      value: req.body?.email ? req.body.email : "",
     },
     {
       name: "message",
       label: "Jouw bericht",
       type: "textarea",
       err: req.formErrorFields?.message ? req.formErrorFields.message : "",
+      value: req.body?.message ? req.body.message : "",
     },
   ];
 
