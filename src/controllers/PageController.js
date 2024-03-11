@@ -9,11 +9,16 @@ export const home = async (req, res) => {
 };
 
 export const contact = (req, res) => {
+  if (req.formErrorFields) {
+    console.log(req.formErrorFields);
+  }
+
   const inputs = [
     {
       name: "fullname",
       label: "Volledige naam",
       type: "text",
+      err: req.formErrorFields?.fullname ? req.formErrorFields.fullname : "",
     },
     {
       name: "email",
