@@ -8,6 +8,9 @@ import { VIEWS_PATH, PORT } from "./consts.js";
 import HandlebarsHelpers from "./lib/HandlebarsHelpers.js";
 
 // import actions from controllers
+
+import ContactValidation from "./middleware/validation/ContactValidation.js";
+
 import { contact, home, postContact } from "./controllers/PageController.js";
 import { getUsers } from "./controllers/api/UserController.js";
 
@@ -51,7 +54,7 @@ app.post("/logout", logout);
 
 app.get("/", home);
 app.get("/contact", contact);
-app.post("/contact", postContact, contact);
+app.post("/contact", ContactValidation, postContact, contact);
 
 /**
  * API Routing

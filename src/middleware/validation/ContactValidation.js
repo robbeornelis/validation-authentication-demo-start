@@ -20,6 +20,6 @@ export default [
     .notEmpty()
     .withMessage("Vul een bericht in")
     .bail()
-    .isLength({ min: 15 }),
-    .withMessage('Je bericht moet minimaal 15 tekens bevatten')
+    .isLength({ min: 15 })
+    .withMessage("Je bericht moet minimaal 15 tekens bevatten"),
 ];

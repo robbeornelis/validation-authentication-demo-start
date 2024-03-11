@@ -2,13 +2,12 @@
  * A Page Controller
  */
 
+import { validationResult } from "express-validator";
+
 export const home = async (req, res) => {
   res.render("home", {});
 };
 
-/*
- * A contact page
- */
 export const contact = (req, res) => {
   const inputs = [
     {
@@ -19,7 +18,7 @@ export const contact = (req, res) => {
     {
       name: "email",
       label: "Jouw e-mail adres",
-      type: "email",
+      type: "text",
     },
     {
       name: "message",
@@ -37,6 +36,11 @@ export const contact = (req, res) => {
  * This function handles the post request for the contact page
  */
 export const postContact = async (req, res, next) => {
+  // check errors and show in browser
+  const errors = validationResult(req);
+  res.send(errors);
+  return;
+
   res.send(req.body);
   return;
 
