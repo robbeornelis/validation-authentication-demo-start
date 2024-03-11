@@ -24,11 +24,13 @@ export const contact = (req, res) => {
       name: "email",
       label: "Jouw e-mail adres",
       type: "text",
+      err: req.formErrorFields?.email ? req.formErrorFields.email : "",
     },
     {
       name: "message",
       label: "Jouw bericht",
       type: "textarea",
+      err: req.formErrorFields?.message ? req.formErrorFields.message : "",
     },
   ];
 
