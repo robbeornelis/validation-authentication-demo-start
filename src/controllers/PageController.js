@@ -9,10 +9,7 @@ export const home = async (req, res) => {
 };
 
 export const contact = (req, res) => {
-  if (req.formErrorFields) {
-    console.log(req.formErrorFields);
-  }
-
+  // create input fields
   const inputs = [
     {
       name: "fullname",
@@ -37,7 +34,7 @@ export const contact = (req, res) => {
     },
   ];
 
-  // haal flash message uit de request, anders leeg ""
+  // get flash message if available
   const flash = req.flash || "";
 
   res.render("contact", {
@@ -58,15 +55,24 @@ export const postContact = async (req, res, next) => {
     errors.array().forEach((error) => {
       req.formErrorFields[error.path] = error.msg;
     });
+
+    // set flash message
+    req.flash = {
+      type: "error",
+      message: "Er zijn fouten gevonden in je formulier",
+    };
+
     // show errors in browser via the contact page
     return next();
   }
 
+  // set flash message
   req.flash = {
     type: "success",
     message: "Bedankt voor je bericht. Georgette gaat ermee aan de slag!",
   };
 
+  // clear form fields
   req.body = {};
 
   return next();
