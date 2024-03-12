@@ -76,7 +76,7 @@ app.get("/testmail", (req, res) => {
       from: "georgette@pgm.be",
       to: "iemand@voorbeeld.be",
       subject: "Een lekker geurend mailtje",
-      html: "Haal nu een gratis <strong>staaltje</strong> bij ons af!",
+      //html: "Haal nu een gratis <strong>staaltje</strong> bij ons af!",
     });
   } catch (error) {
     res.send("Error sending mail: " + error.message);
