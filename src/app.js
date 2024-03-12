@@ -71,12 +71,16 @@ app.post(
 );
 
 app.get("/testmail", (req, res) => {
-  MailTransporter.sendMail({
-    from: "georgette@pgm.be",
-    to: "iemand@voorbeeld.be",
-    subject: "Een lekker geurend mailtje",
-    text: "Haal nu een gratis staaltje bij ons af!",
-  });
+  try {
+    MailTransporter.sendMail({
+      from: "georgette@pgm.be",
+      to: "iemand@voorbeeld.be",
+      subject: "Een lekker geurend mailtje",
+      html: "Haal nu een gratis <strong>staaltje</strong> bij ons af!",
+    });
+  } catch (error) {
+    console.error(error);
+  }
 
   res.send("Test mail");
 });
