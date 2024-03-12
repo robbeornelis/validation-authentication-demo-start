@@ -58,7 +58,7 @@ export const postContact = async (req, res, next) => {
 
     // set flash message
     req.flash = {
-      type: "error",
+      type: "danger",
       message: "Er zijn fouten gevonden in je formulier",
     };
 
