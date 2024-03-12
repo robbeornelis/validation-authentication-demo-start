@@ -78,7 +78,10 @@ app.get("/testmail", (req, res) => {
       subject: "Een lekker geurend mailtje",
       //html: "Haal nu een gratis <strong>staaltje</strong> bij ons af!",
       template: "test",
-      context: {},
+      context: {
+        title: "This is so cool",
+        message: "This will have bg color",
+      },
     });
   } catch (error) {
     res.send("Error sending mail: " + error.message);
