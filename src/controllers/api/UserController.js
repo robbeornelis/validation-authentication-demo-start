@@ -11,7 +11,7 @@ export const index = async (req, res, next) => {
     // get the interests and return them with status code 200
     res.status(200).json(users);
   } catch (e) {
-    next(e.message);
+    res.status(500).json({ message: e.message });
   }
 };
 
@@ -24,7 +24,7 @@ export const show = async (req, res, next) => {
     // get the interests and return them with status code 200
     res.status(200).json(user);
   } catch (e) {
-    next(e.message);
+    res.status(500).json({ message: e.message });
   }
 };
 
@@ -35,7 +35,7 @@ export const store = async (req, res, next) => {
     // get the interests and return them with status code 200
     res.status(201).json(user);
   } catch (e) {
-    next(e.message);
+    res.status(500).json({ message: e.message });
   }
 };
 
@@ -46,7 +46,7 @@ export const update = async (req, res, next) => {
     // get the interests and return them with status code 200
     res.status(200).json(user);
   } catch (e) {
-    next(e.message);
+    res.status(500).json({ message: e.message });
   }
 };
 
@@ -57,6 +57,6 @@ export const destroy = async (req, res, next) => {
     // get the interests and return them with status code 200
     res.status(200).json(user);
   } catch (e) {
-    next(e.message);
+    res.status(500).json({ message: e.message });
   }
 };
