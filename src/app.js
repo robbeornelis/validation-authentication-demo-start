@@ -72,10 +72,10 @@ app.post(
 
 app.get("/testmail", (req, res) => {
   MailTransporter.sendMail({
-    from: "philippe.depauw@arteveldehs.be",
-    to: "mark.verbeke@arteveldehs.be",
-    subject: "PGM studenten zijn geweldig",
-    text: "Geef ze allemaal een diploma!",
+    from: "georgette@pgm.be",
+    to: "iemand@voorbeeld.be",
+    subject: "Een lekker geurend mailtje",
+    text: "Haal nu een gratis staaltje bij ons af!",
   });
 
   res.send("Test mail");
