@@ -101,7 +101,6 @@ export const postContact = async (req, res, next) => {
         "Er is een fout opgetreden bij het versturen van je bericht <br>" +
         error.message,
     };
-
     return next();
   }
 };
