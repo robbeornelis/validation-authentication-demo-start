@@ -70,7 +70,6 @@ app.delete("/api/user/:id", ApiUserController.destroy);
  *        START SERVER
  * ------------------------------
  */
-
 app.listen(PORT, () => {
   console.log(`Application is running on http://localhost:${PORT}/.`);
 });
