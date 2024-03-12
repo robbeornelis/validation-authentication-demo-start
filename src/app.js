@@ -79,7 +79,7 @@ app.get("/testmail", (req, res) => {
       html: "Haal nu een gratis <strong>staaltje</strong> bij ons af!",
     });
   } catch (error) {
-    console.error(error);
+    res.send("Error sending mail: " + error.message);
   }
 
   res.send("Test mail");
