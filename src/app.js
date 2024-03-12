@@ -62,6 +62,20 @@ app.post("/logout", AuthController.logout);
 
 // Page routes
 app.get("/", PageController.home);
+app.post("/", (req, res) => {
+  const action = req.body.action;
+  switch (action) {
+    case "update":
+      res.send("we update now");
+      break;
+    case "delete":
+      res.send("we delete now");
+      break;
+    case "check":
+      res.send("we check now");
+      break;
+  }
+});
 app.get("/contact", PageController.contact);
 app.post(
   "/contact",
