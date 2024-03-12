@@ -1,4 +1,8 @@
-// import npm libraries
+/**
+ * ------------------------------
+ *            IMPORTS
+ * ------------------------------
+ */
 import express from "express";
 import { create } from "express-handlebars";
 import bodyParser from "body-parser";
@@ -13,10 +17,17 @@ import ContactValidation from "./middleware/validation/ContactValidation.js";
  * We use the import * as syntax to import all the functions from the file and
  * and assign them to a variable with the same name as the file.
  * This allows us to call the functions using the variable name as a prefix.
+ * And it limits the amount of imports we need to do.
  */
 import * as PageController from "./controllers/PageController.js";
 import * as AuthController from "./controllers/AuthController.js";
 import * as ApiUserController from "./controllers/api/UserController.js";
+
+/**
+ * ------------------------------
+ *       CONFIGURATION
+ * ------------------------------
+ */
 
 // create an express app
 const app = express();
