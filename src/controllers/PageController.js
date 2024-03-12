@@ -3,6 +3,7 @@
  */
 
 import { validationResult } from "express-validator";
+import MailTransporter from "../lib/MailTransporter.js";
 
 export const home = async (req, res) => {
   res.render("home", {});
@@ -66,14 +67,41 @@ export const postContact = async (req, res, next) => {
     return next();
   }
 
-  // set flash message
-  req.flash = {
-    type: "success",
-    message: "Bedankt voor je bericht. Georgette gaat ermee aan de slag!",
-  };
+  // send email
+  try {
+    const mailInfo = await MailTransporter.sendMail({
+      from: "noreply@pgm.be",
+      cc: "georgette@pgm.be",
+      to: req.body.email,
+      replyTo: req.body.email,
+      subject: "Nieuw bericht via contactformulier Georgette's Parfumwinkel",
+      html: `
+        <p>Van: ${req.body.fullname}</p>
+        <p>E-mail: ${req.body.email}</p>
+        <p>Bericht: ${req.body.message}</p>
+      `,
+    });
 
-  // clear form fields
-  req.body = {};
+    // set flash message
+    req.flash = {
+      type: "success",
+      message:
+        "Bedankt voor je bericht. Georgette gaat ermee aan de slag!<br>" +
+        mailInfo.messageId,
+    };
 
-  return next();
+    // clear form fields
+    req.body = {};
+
+    return next();
+  } catch (error) {
+    req.flash = {
+      type: "danger",
+      message:
+        "Er is een fout opgetreden bij het versturen van je bericht <br>" +
+        error.message,
+    };
+
+    return next();
+  }
 };
