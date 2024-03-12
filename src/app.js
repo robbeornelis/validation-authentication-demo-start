@@ -8,6 +8,7 @@ import { create } from "express-handlebars";
 import bodyParser from "body-parser";
 import { VIEWS_PATH, PORT } from "./consts.js";
 import HandlebarsHelpers from "./lib/HandlebarsHelpers.js";
+import MailTransporter from "./lib/MailTransporter.js";
 
 // middleware
 import ContactValidation from "./middleware/validation/ContactValidation.js";
@@ -68,6 +69,17 @@ app.post(
   PageController.postContact,
   PageController.contact
 );
+
+app.get("/testmail", (req, res) => {
+  MailTransporter.sendMail({
+    from: "philippe.depauw@arteveldehs.be",
+    to: "mark.verbeke@arteveldehs.be",
+    subject: "PGM studenten zijn geweldig",
+    text: "Geef ze allemaal een diploma!",
+  });
+
+  res.send("Test mail");
+});
 
 // API routes
 app.get("/api/user", ApiUserController.index);
