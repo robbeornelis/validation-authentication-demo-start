@@ -2,39 +2,31 @@
 import express from "express";
 import { create } from "express-handlebars";
 import bodyParser from "body-parser";
-
 import { VIEWS_PATH, PORT } from "./consts.js";
-
 import HandlebarsHelpers from "./lib/HandlebarsHelpers.js";
 
-// import actions from controllers
-
+// middleware
 import ContactValidation from "./middleware/validation/ContactValidation.js";
 
-import { contact, home, postContact } from "./controllers/PageController.js";
-import { getUsers } from "./controllers/api/UserController.js";
+// controllers
+/**
+ * We use the import * as syntax to import all the functions from the file and
+ * and assign them to a variable with the same name as the file.
+ * This allows us to call the functions using the variable name as a prefix.
+ */
+import * as PageController from "./controllers/PageController.js";
+import * as AuthController from "./controllers/AuthController.js";
+import * as ApiUserController from "./controllers/api/UserController.js";
 
-import {
-  login,
-  logout,
-  postLogin,
-  postRegister,
-  register,
-} from "./controllers/AuthController.js";
-
+// create an express app
 const app = express();
 app.use(express.static("public"));
 
-/**
- * Import the body parser
- */
-
+// make sure we can parse the body of the request
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/**
- * Handlebars Init
- */
+// set the view engine: handlebars
 const hbs = create({
   helpers: HandlebarsHelpers,
   extname: "hbs",
@@ -44,24 +36,41 @@ app.set("view engine", "hbs");
 app.set("views", VIEWS_PATH);
 
 /**
- * App Routing
+ * ------------------------------
+ *            ROUTING
+ * ------------------------------
  */
-app.get("/login", login);
-app.get("/register", register);
-app.post("/register", postRegister, register);
-app.post("/login", postLogin, login);
-app.post("/logout", logout);
 
-app.get("/", home);
-app.get("/contact", contact);
-app.post("/contact", ContactValidation, postContact, contact);
+// Auth routes
+app.get("/login", AuthController.login);
+app.get("/register", AuthController.register);
+app.post("/register", AuthController.postRegister, AuthController.register);
+app.post("/login", AuthController.postLogin, AuthController.login);
+app.post("/logout", AuthController.logout);
+
+// Page routes
+app.get("/", PageController.home);
+app.get("/contact", PageController.contact);
+app.post(
+  "/contact",
+  ContactValidation,
+  PageController.postContact,
+  PageController.contact
+);
+
+// API routes
+app.get("/api/user", ApiUserController.index);
+app.get("/api/user/:id", ApiUserController.show);
+app.post("/api/user", ApiUserController.store);
+app.patch("/api/user/:id", ApiUserController.update);
+app.delete("/api/user/:id", ApiUserController.destroy);
 
 /**
- * API Routing
+ * ------------------------------
+ *        START SERVER
+ * ------------------------------
  */
-app.get("/api/user", getUsers);
 
-// start the server
 app.listen(PORT, () => {
   console.log(`Application is running on http://localhost:${PORT}/.`);
 });
