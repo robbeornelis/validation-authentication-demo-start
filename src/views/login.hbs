@@ -1,6 +1,10 @@
 <section class="auth-container login">
   <h4>Login</h4>
-  {{>form-errors this}}
+  {{#if flash.message}}
+    <div class="alert {{ flash.type}}">
+        {{ flash.message}}
+    </div>
+  {{/if}}
   <form method="post" action="login">
     {{#each inputs}}
       {{>form-input this}}
