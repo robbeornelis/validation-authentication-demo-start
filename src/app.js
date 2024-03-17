@@ -21,6 +21,7 @@ import ContactValidation from "./middleware/validation/ContactValidation.js";
  * And it limits the amount of imports we need to do.
  */
 import * as PageController from "./controllers/PageController.js";
+import * as ExampleController from "./controllers/ExampleFormController.js";
 import * as AuthController from "./controllers/AuthController.js";
 import * as ApiUserController from "./controllers/api/UserController.js";
 
@@ -62,20 +63,9 @@ app.post("/logout", AuthController.logout);
 
 // Page routes
 app.get("/", PageController.home);
-app.post("/", (req, res) => {
-  const action = req.body.action;
-  switch (action) {
-    case "update":
-      res.send("we update now");
-      break;
-    case "delete":
-      res.send("we delete now");
-      break;
-    case "check":
-      res.send("we check now");
-      break;
-  }
-});
+app.get("/example", ExampleController.getExample);
+app.post("/example", ExampleController.postExample);
+
 app.get("/contact", PageController.contact);
 app.post(
   "/contact",
