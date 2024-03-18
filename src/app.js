@@ -6,6 +6,7 @@
 import express from "express";
 import { create } from "express-handlebars";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import { VIEWS_PATH, PORT } from "./consts.js";
 import HandlebarsHelpers from "./lib/HandlebarsHelpers.js";
 import MailTransporter from "./lib/MailTransporter.js";
@@ -38,6 +39,9 @@ app.use(express.static("public"));
 // make sure we can parse the body of the request
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// make use of the cookie parser 🍪 middleware
+app.use(cookieParser());
 
 // set the view engine: handlebars
 const hbs = create({
