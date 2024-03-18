@@ -14,6 +14,7 @@ import MailTransporter from "./lib/MailTransporter.js";
 // middleware
 import ContactValidation from "./middleware/validation/ContactValidation.js";
 import AuthRegisterValidation from "./middleware/validation/AuthRegisterValidation.js";
+import AuthLoginValidation from "./middleware/validation/AuthLoginValidation.js";
 
 // controllers
 /**
@@ -68,7 +69,12 @@ app.post(
   AuthController.postRegister,
   AuthController.register
 );
-app.post("/login", AuthController.postLogin, AuthController.login);
+app.post(
+  "/login",
+  AuthLoginValidation,
+  AuthController.postLogin,
+  AuthController.login
+);
 app.post("/logout", AuthController.logout);
 
 // Page routes

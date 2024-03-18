@@ -12,9 +12,49 @@ import User from "../models/User.js";
  * Login
  */
 export const login = async (req, res) => {
-  res.render("login", { layout: "authentication" });
+  const inputs = [
+    {
+      name: "email",
+      label: "Email",
+      type: "email",
+      value: req.body.email,
+      err: req.formErrorFields?.email ? req.formErrorFields.email : "",
+    },
+    {
+      name: "password",
+      label: "Wachtwoord",
+      type: "password",
+      err: req.formErrorFields?.password ? req.formErrorFields.password : "",
+    },
+  ];
+
+  // get flash messages
+  const flash = req.flash || {};
+
+  res.render("login", { layout: "authentication", inputs, flash });
 };
-export const postLogin = async (req, res, next) => {};
+export const postLogin = async (req, res, next) => {
+  // check errors
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    req.formErrorFields = {};
+    errors.array().forEach((error) => {
+      req.formErrorFields[error.path] = error.msg;
+    });
+
+    // set flash message
+    req.flash = {
+      type: "danger",
+      message: "Er zijn fouten gevonden in het formulier",
+    };
+
+    // redirect to the login page
+    return next();
+  }
+
+  res.send("you can now login safely");
+};
 
 /**
  * Register
