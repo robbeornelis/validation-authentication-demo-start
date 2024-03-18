@@ -15,7 +15,7 @@ export default [
         .withMessage("Voornaam mag maximaal 255 tekens bevatten"),
     body("email")
         .notEmpty()
-        .withMessage("E-mail is verplicht"),
+        .withMessage("E-mail is verplicht")
         .bail()
         .maxLength(255)
         .withMessage("E-mail mag maximaal 255 tekens bevatten")
