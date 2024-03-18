@@ -50,8 +50,10 @@ export const register = async (req, res) => {
     },
   ];
 
+  // get roles
   const roles = await Role.query();
 
+  // get flash messages
   const flash = req.flash || {};
 
   res.render("register", { layout: "authentication", inputs, roles, flash });
@@ -97,8 +99,6 @@ export const postRegister = async (req, res, next) => {
     password: pass,
     role_id: parseInt(req.body.role),
   });
-
-  // res.send(user);
 
   // redirect to the login page
   res.redirect("/login");
