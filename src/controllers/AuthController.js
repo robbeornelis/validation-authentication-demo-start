@@ -48,6 +48,8 @@ export const postRegister = async (req, res, next) => {
     // redirect to the register page
     return next();
   }
+
+  res.send("No mistakes in form, continue with registration");
 };
 
 /**
