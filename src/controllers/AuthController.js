@@ -4,6 +4,9 @@
 
 import { validationResult } from "express-validator";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 import Role from "../models/Role.js";
 import User from "../models/User.js";
@@ -53,7 +56,44 @@ export const postLogin = async (req, res, next) => {
     return next();
   }
 
-  res.send("you can now login safely");
+  // check if user exists
+  const user = await User.query().findOne({ email: req.body.email });
+  if (!user) {
+    req.flash = {
+      type: "danger",
+      message: "Gebruiker bestaat niet",
+    };
+    return next();
+  }
+
+  // check password
+  const match = bcrypt.compareSync(req.body.password, user.password);
+
+  if (!match) {
+    req.flash = {
+      type: "danger",
+      message: "Wachtwoord is fout",
+    };
+    return next();
+  }
+
+  // token
+  const token = jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+    },
+    process.env.TOKEN_SALT,
+    {
+      expiresIn: "1h",
+    }
+  );
+
+  // set cookie, this is very unsafe, but for now it's okay
+  res.cookie("user", token, { httpOnly: true });
+
+  // redirect to the home page
+  res.redirect("/");
 };
 
 /**
