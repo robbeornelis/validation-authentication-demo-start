@@ -3,8 +3,10 @@
  */
 
 import { validationResult } from "express-validator";
+import bcrypt from "bcrypt";
 
 import Role from "../models/Role.js";
+import User from "../models/User.js";
 
 /**
  * Login
@@ -50,7 +52,9 @@ export const register = async (req, res) => {
 
   const roles = await Role.query();
 
-  res.render("register", { layout: "authentication", inputs, roles });
+  const flash = req.flash || {};
+
+  res.render("register", { layout: "authentication", inputs, roles, flash });
 };
 export const postRegister = async (req, res, next) => {
   // check errors
@@ -72,7 +76,32 @@ export const postRegister = async (req, res, next) => {
     return next();
   }
 
-  res.send("No mistakes in form, continue with registration");
+  // check if user exists
+  const userExists = await User.query().findOne({ email: req.body.email });
+  if (userExists) {
+    req.flash = {
+      type: "danger",
+      message: "Gebruiker bestaat al",
+    };
+    return next();
+  }
+
+  // hash password
+  const pass = bcrypt.hashSync(req.body.password, 10);
+
+  // create user
+  const user = await User.query().insert({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: pass,
+    role_id: parseInt(req.body.role),
+  });
+
+  // res.send(user);
+
+  // redirect to the login page
+  res.redirect("/login");
 };
 
 /**
