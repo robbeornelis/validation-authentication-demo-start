@@ -19,10 +19,33 @@ export const postLogin = async (req, res, next) => {};
  */
 export const register = async (req, res) => {
   const inputs = [
-    { name: "firstname", label: "Voornaam", type: "text" },
-    { name: "lastname", label: "Achternaam", type: "text" },
-    { name: "email", label: "Email", type: "email" },
-    { name: "password", label: "Wachtwoord", type: "password" },
+    {
+      name: "firstname",
+      label: "Voornaam",
+      type: "text",
+      value: req.body.firstname,
+      err: req.formErrorFields?.firstname ? req.formErrorFields.firstname : "",
+    },
+    {
+      name: "lastname",
+      label: "Achternaam",
+      type: "text",
+      value: req.body.lastname,
+      err: req.formErrorFields?.lastname ? req.formErrorFields.lastname : "",
+    },
+    {
+      name: "email",
+      label: "Email",
+      type: "email",
+      value: req.body.email,
+      err: req.formErrorFields?.email ? req.formErrorFields.email : "",
+    },
+    {
+      name: "password",
+      label: "Wachtwoord",
+      type: "password",
+      err: req.formErrorFields?.password ? req.formErrorFields.password : "",
+    },
   ];
 
   const roles = await Role.query();
