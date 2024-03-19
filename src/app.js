@@ -15,7 +15,9 @@ import MailTransporter from "./lib/MailTransporter.js";
 import ContactValidation from "./middleware/validation/ContactValidation.js";
 import AuthRegisterValidation from "./middleware/validation/AuthRegisterValidation.js";
 import AuthLoginValidation from "./middleware/validation/AuthLoginValidation.js";
+
 import jwtAuth from "./middleware/jwtAuth.js";
+import authoriseUser from "./middleware/autorisation/AuthoriseUser.js";
 
 // controllers
 /**
@@ -28,6 +30,8 @@ import * as PageController from "./controllers/PageController.js";
 import * as ExampleController from "./controllers/ExampleFormController.js";
 import * as AuthController from "./controllers/AuthController.js";
 import * as ApiUserController from "./controllers/api/UserController.js";
+
+import * as DashboardUserController from "./controllers/dashboard/UserController.js";
 
 /**
  * ------------------------------
@@ -118,12 +122,59 @@ app.get("/testmail", (req, res) => {
   res.send("Test mail");
 });
 
+// dashboard routes for georgette
+app.get(
+  "/dashboard/users",
+  jwtAuth,
+  authoriseUser("admin"),
+  DashboardUserController.index
+);
+app.get(
+  "/dashboard/users/:id",
+  jwtAuth,
+  authoriseUser("admin"),
+  DashboardUserController.show
+);
+app.get(
+  "/dashboard/users/:id/edit",
+  jwtAuth,
+  authoriseUser("admin"),
+  DashboardUserController.edit
+);
+app.post(
+  "/dashboard/users",
+  jwtAuth,
+  authoriseUser("admin"),
+  DashboardUserController.store
+);
+app.patch(
+  "/dashboard/users/:id",
+  jwtAuth,
+  authoriseUser("admin"),
+  DashboardUserController.update
+);
+app.delete(
+  "/dashboard/users/:id",
+  jwtAuth,
+  authoriseUser("admin"),
+  DashboardUserController.destroy
+);
+
 // API routes
 app.get("/api/user", ApiUserController.index);
 app.get("/api/user/:id", ApiUserController.show);
 app.post("/api/user", ApiUserController.store);
 app.patch("/api/user/:id", ApiUserController.update);
 app.delete("/api/user/:id", ApiUserController.destroy);
+
+app.get("*", (req, res) => {
+  res.render("errors/message", {
+    code: 404,
+    title: "Page not found",
+    message:
+      "The page you are looking for does not exist, but maybe this perfume helps",
+  });
+});
 
 /**
  * ------------------------------

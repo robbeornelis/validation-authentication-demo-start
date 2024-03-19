@@ -1,0 +1,40 @@
+<div class="container">
+
+    <table>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Naam
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Acties
+            </th>
+        </tr>
+        {{#each users}}
+
+        <tr>
+            <td>
+                {{id}}
+            </td>
+            <td>
+                {{name}}
+            </td>
+            <td>
+                {{email}}
+            </td>
+            <td>
+                <a href="/dashboard/users/edit/{{id}}">Bewerken</a>
+                <a href="/dashboard/users/delete/{{id}}">Verwijderen</a>
+            </td>
+
+        </tr>
+
+        {{/each}}
+    </table>
+
+</div>
