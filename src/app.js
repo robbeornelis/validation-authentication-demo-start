@@ -167,6 +167,7 @@ app.post("/api/user", ApiUserController.store);
 app.patch("/api/user/:id", ApiUserController.update);
 app.delete("/api/user/:id", ApiUserController.destroy);
 
+// catch all route, if no other route matches
 app.get("*", (req, res) => {
   res.render("errors/message", {
     code: 404,
