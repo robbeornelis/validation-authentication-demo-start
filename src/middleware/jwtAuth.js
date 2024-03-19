@@ -10,7 +10,6 @@ export default async (req, res, next) => {
     if (!userToken) {
       return res.redirect("/login");
     }
-
     const userData = jwt.verify(userToken, process.env.TOKEN_SALT);
     if (!userData) {
       return res.redirect("/login");

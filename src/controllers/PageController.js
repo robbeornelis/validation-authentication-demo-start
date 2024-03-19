@@ -11,7 +11,8 @@ dotenv.config();
 import User from "../models/User.js";
 
 export const home = async (req, res) => {
-  res.render("home", {});
+  const user = req.user;
+  res.render("home", { user });
 };
 
 export const contact = (req, res) => {
