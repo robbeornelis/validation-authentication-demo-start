@@ -11,17 +11,6 @@ dotenv.config();
 import User from "../models/User.js";
 
 export const home = async (req, res) => {
-  const token = req.cookies.user;
-
-  if (token) {
-    const userData = jwt.verify(token, process.env.TOKEN_SALT);
-    if (userData) {
-      const user = await User.query().findOne({ id: userData.id });
-      res.render("home", { user });
-      return;
-    }
-  }
-
   res.render("home", {});
 };
 

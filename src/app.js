@@ -15,6 +15,7 @@ import MailTransporter from "./lib/MailTransporter.js";
 import ContactValidation from "./middleware/validation/ContactValidation.js";
 import AuthRegisterValidation from "./middleware/validation/AuthRegisterValidation.js";
 import AuthLoginValidation from "./middleware/validation/AuthLoginValidation.js";
+import jwtAuth from "./middleware/jwtAuth.js";
 
 // controllers
 /**
@@ -63,18 +64,25 @@ app.set("views", VIEWS_PATH);
 // Auth routes
 app.get("/login", AuthController.login);
 app.get("/register", AuthController.register);
+
 app.post(
   "/register",
   AuthRegisterValidation,
   AuthController.postRegister,
   AuthController.register
 );
+
 app.post(
   "/login",
   AuthLoginValidation,
   AuthController.postLogin,
   AuthController.login
 );
+
+app.get("/webshop", jwtAuth, (req, res) => {
+  res.render("webshop/index", { user: req.user });
+});
+
 app.post("/logout", AuthController.logout);
 
 // Page routes
