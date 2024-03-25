@@ -1,6 +1,14 @@
 # Validation, Authentication and Authorization
 And mailing!
 
+# Install
+
+- npm i
+- make .env
+- run script `npm run make:db`
+- start app `npm run start:dev`
+
+
 ## Learning Objectives
 
 - Understand the importance of validation
