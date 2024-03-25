@@ -11,12 +11,20 @@
     </li>
     <li>
       <a href="/contact">Contact</a>
-    <li>
-      {{#if user}}
-      <a href="/dashboard">Dashboard</a>
-      {{else}}
-      <a href="/login">Webshop</a>
-      {{/if}}
     </li>
+      {{#if user}}
+    <li>
+      <a href="/webshop">Webshop</a>
+    </li>
+    <li>
+      <form action="/logout" method="POST">
+        <button class="logout" type="submit">Logout</button>
+      </form>
+    </li>
+    {{else}}
+    <li>
+      <a href="/login">Login</a>
+    </li>
+    {{/if}}
   </ul>
 </nav>

@@ -87,7 +87,7 @@ app.get("/webshop", jwtAuth, (req, res) => {
   res.render("webshop/index", { user: req.user });
 });
 
-app.post("/logout", AuthController.logout);
+app.get("/logout", AuthController.logout);
 
 // Page routes
 app.get("/", PageController.home);

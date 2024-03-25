@@ -187,4 +187,10 @@ export const postRegister = async (req, res, next) => {
 /**
  * Logout
  */
-export const logout = async (req, res) => {};
+export const logout = async (req, res) => {
+  // DELETE COOKIE USER
+
+  res.cookie("user", "", { httpOnly: true });
+
+  res.redirect("/");
+};
