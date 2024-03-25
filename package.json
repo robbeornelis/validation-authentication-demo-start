@@ -5,7 +5,8 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "start:dev": "nodemon ./src/app.js --config nodemon.json"
+    "start:dev": "nodemon ./src/app.js --config nodemon.json",
+    "make:db" : "npx knex migrate:latest && npx knex seed:run"
   },
   "keywords": [],
   "author": "Arteveldehogeschool",
