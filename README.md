@@ -8,7 +8,6 @@ And mailing!
 - run script `npm run make:db`
 - start app `npm run start:dev`
 
-
 ## Learning Objectives
 
 - Understand the importance of validation
