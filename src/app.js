@@ -1,11 +1,10 @@
 // import npm libraries
 import express from "express";
-import { create } from "express-handlebars";
 import bodyParser from "body-parser";
+import expressEjsLayouts from "express-ejs-layouts";
 
 import { VIEWS_PATH, PORT } from "./consts.js";
 
-import HandlebarsHelpers from "./lib/HandlebarsHelpers.js";
 
 // import actions from controllers
 import { contact, home, postContact } from "./controllers/PageController.js";
@@ -29,15 +28,9 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/**
- * Handlebars Init
- */
-const hbs = create({
-  helpers: HandlebarsHelpers,
-  extname: "hbs",
-});
-app.engine("hbs", hbs.engine);
-app.set("view engine", "hbs");
+app.use(expressEjsLayouts);
+app.set("view engine", "ejs");
+app.set("layout", "layouts/main");
 app.set("views", VIEWS_PATH);
 
 /**
