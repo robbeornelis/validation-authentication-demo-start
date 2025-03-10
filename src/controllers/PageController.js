@@ -10,8 +10,28 @@ export const home = async (req, res) => {
  * A contact page
  */
 export const contact = (req, res) => {
-  res.render("contact", {});
-};
+	const inputs = [
+    {
+      name: "fullname",
+      label: "Volledige naam",
+      type: "text",
+    },
+    {
+      name: "email",
+      label: "E-mail",
+      type: "text",
+    },
+    {
+      name: "message",
+      label: "Bericht",
+      type: "textarea",
+    },
+  ];
+
+  res.render("contact", {
+    inputs
+  });
+}
 
 /**
  * This function handles the post request for the contact page

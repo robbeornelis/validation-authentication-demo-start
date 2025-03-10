@@ -1,10 +1,10 @@
 <section class="auth-container login">
   <h4>Login</h4>
-  {{>form-errors this}}
+  <%- include('./partials/form-errors') %>
   <form method="post" action="login">
-    {{#each inputs}}
-      {{>form-input this}}
-    {{/each}}
+    <% locals.inputs?.forEach(input => { %>
+      <%- include('form-input', input) %>
+    <% }); %>
     <div class="footer-container">
       <div class="footer-container-left">
       <input type="submit" class="btn btn-primary" value="Login">
