@@ -5,7 +5,6 @@ import expressEjsLayouts from "express-ejs-layouts";
 
 import { VIEWS_PATH, PORT } from "./consts.js";
 
-
 // import actions from controllers
 import { contact, home, postContact } from "./controllers/PageController.js";
 import { getUsers } from "./controllers/api/UserController.js";
@@ -17,6 +16,7 @@ import {
   postRegister,
   register,
 } from "./controllers/AuthController.js";
+import ContactValidation from "./middleware/validation/ContactValidation.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -44,7 +44,7 @@ app.post("/logout", logout);
 
 app.get("/", home);
 app.get("/contact", contact);
-app.post("/contact", postContact, contact);
+app.post("/contact", ContactValidation, postContact, contact);
 
 /**
  * API Routing

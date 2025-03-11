@@ -10,7 +10,7 @@ export const home = async (req, res) => {
  * A contact page
  */
 export const contact = (req, res) => {
-	const inputs = [
+  const inputs = [
     {
       name: "fullname",
       label: "Volledige naam",
@@ -29,9 +29,9 @@ export const contact = (req, res) => {
   ];
 
   res.render("contact", {
-    inputs
+    inputs,
   });
-}
+};
 
 /**
  * This function handles the post request for the contact page
