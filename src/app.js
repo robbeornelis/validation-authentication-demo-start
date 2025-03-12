@@ -21,9 +21,7 @@ import ContactValidation from "./middleware/validation/ContactValidation.js";
 const app = express();
 app.use(express.static("public"));
 
-/**
- * Import the body parser
- */
+/*Import the body parser*/
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -1,7 +1,9 @@
 <% if (locals.formErrors) { %>
   <ul class="form-errors">
-    <% formErrors.forEach(formError => { %>
-      <li><%= formError %></li>
-    <% }); %>
+    <% formErrors.forEach(formError=> { %>
+      <li>
+        <%= formError %>
+      </li>
+      <% }); %>
   </ul>
-<% } %>
+  <% } %>
